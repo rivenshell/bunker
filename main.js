@@ -23,7 +23,7 @@ let mixer = null
 
 const loader = new OBJLoader()
 loader.load(
-  "./models/bunker3.0.obj",
+  "./static/models/bunker3.0.obj",
   function (object) {
     scene.add(object)
   },
