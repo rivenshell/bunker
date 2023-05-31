@@ -1,7 +1,7 @@
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js"
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js"
+
 import * as dat from "lil-gui"
 
 /**
@@ -19,17 +19,21 @@ const scene = new THREE.Scene()
 /**
  * Models
  */
-const dracoLoader = new DRACOLoader()
-dracoLoader.setDecoderPath("/draco/")
-
-const gltfLoader = new GLTFLoader()
-gltfLoader.setDRACOLoader(dracoLoader)
-
 let mixer = null
 
-gltfLoader.load("/models/bunker2.glb", (gltf) => {
-  scene.add(gltf.scene)
-})
+const loader = new OBJLoader()
+loader.load(
+  "./models/bunker3.0.obj",
+  function (object) {
+    scene.add(object)
+  },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded")
+  },
+  function (error) {
+    console.log("An error happened")
+  }
+)
 
 /**
  * Floor
